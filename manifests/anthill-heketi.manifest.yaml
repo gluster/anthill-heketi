@@ -1,0 +1,5 @@
+---
+packageName: anthill-heketi
+channels:
+  - name: preview
+    currentCSV: anthill-heketi.v0.0.1.alpha
