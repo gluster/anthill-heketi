@@ -1,0 +1,43 @@
+---
+apiVersion: operators.coreos.com/v1alpha1
+kind: ClusterServiceVersion
+metadata:
+  name: anthill-heketi.v0.0.1.alpha
+  namespace: placeholder
+  annotations:
+    tectonic-visibility: ocs
+spec:
+  displayName: anthill-heketi
+  description: |
+    anthill-heketi
+  keywords: ['anthill', 'heketi', 'gluster', 'storage']
+  version: 0.0.1
+  maturity: alpha
+  maintainers:
+    - name: Gluster
+      email: gluster-devel@gluster.org
+  provider:
+    name: Gluster
+  install:
+    strategy: deployment
+    spec:
+      permissions:
+        - serviceAccountName: anthill-heketi-operator
+          rules:
+          # TODO
+      deployments:
+        - name: anthill-heketi-operator
+          spec:
+          # TODO
+  customresourcedefinitions:
+    owned:
+      - name: glusterclusters.anthill-heketi.gluster.org
+        version: v1alpha1
+        kind: GlusterCluster
+        displayName: GlusterCluster
+        description: Represents a Gluster cluster
+      - name: glusternodes.anthill-heketi.gluster.org
+        version: v1alpha1
+        kind: GlusterNode
+        displayName: GlusterNode
+        description: Represents a Gluster cluster
