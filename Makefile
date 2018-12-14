@@ -1,25 +1,9 @@
+.EXPORT_ALL_VARIABLES:
 
-IMG ?= gluster/anthill-heketi:latest
+BUILDDIR ?= build
+DEP ?= dep
 
-PACKAGE=github.com/gluster/anthill-heketi
-MAIN_PACKAGE=$(PACKAGE)/cmd/manager
-
-BIN=gluster-anthill-heketi
-
-ENVVAR=GOOS=linux CGO_ENABLED=0
-GOOS=linux
-GO_BUILD_RECIPE=GOOS=$(GOOS) go build -o $(BIN) $(MAIN_PACKAGE)
-
-BINDATA=pkg/generated/bindata.go
-GOBINDATA_BIN=$(GOPATH)/bin/go-bindata
-DEP:=dep
-
-CONTAINER_BUILD_RECIPE:=docker build
-
-all: build
-
-build: vendor-install
-	$(GO_BUILD_RECIPE)
+all: container-build
 
 vendor-update:
 	@echo Updating vendored packages
@@ -31,22 +15,27 @@ vendor-install:
 	$(DEP) ensure -vendor-only -v
 	@echo
 
-# TODO: need code generation?
-#generate: $(GOBINDATA_BIN)
-#	$(GOBINDATA_BIN) -nometadata -pkg generated -o $(BINDATA) assets/...
+build:
+	@./scripts/build.sh
+	@echo
 
-#$(GOBINDATA_BIN):
-#	go get github.com/jteeuwen/go-bindata/go-bindata
+install-tools:
+	@./scripts/install-text-linters.sh
+	@./scripts/install-go-tools.sh
+
+lint:
+	@./scripts/lint-text.sh
+	@./scripts/lint-go.sh
+	@echo
 
 test:
-	go test ./pkg/...
+	@./test/go-test.sh
+	@echo
 
-verify:
-	echo "TODO: add verify scripts"
-
-container: build test verify
-	$(CONTAINER_BUILD_RECIPE) . -t $(IMG)
+container-build:
+	@./scripts/container-build.sh
+	@echo
 
 clean:
-	go clean
-	rm -f $(BIN)
+	go clean -r -x
+	rm -rf $(BUILDDIR)

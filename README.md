@@ -1,7 +1,7 @@
 # Gluster operator for Kubernetes and OpenShift
 
 [![Build Status](https://travis-ci.org/gluster/anthill-heketi.svg?branch=master)](https://travis-ci.org/gluster/anthill-heketi)
-[![Documentation Status](https://readthedocs.org/projects/gluster-anthill/badge/?version=latest)](http://gluster-anthill-heketi.readthedocs.io/)
+[![Documentation Status](https://readthedocs.org/projects/gluster-anthill-heketi/badge/?version=latest)](http://gluster-anthill-heketi.readthedocs.io/)
 [![Go Report Card](https://goreportcard.com/badge/github.com/gluster/anthill-heketi)](https://goreportcard.com/report/github.com/gluster/anthill-heketi)
 <!-- Badges: TravisCI, CentOS CI, Coveralls, GoDoc, GoReport, ReadTheDocs -->
 
@@ -14,33 +14,17 @@ doc](CONTRIBUTING.md) to find out how.
 
 ## Build
 
-The operator is based on the [Operator
-SDK](https://github.com/operator-framework/operator-sdk). In order to build the
-operator, you first need to install the SDK. [Instructions are
-here.](https://github.com/operator-framework/operator-sdk#quick-start)
-
-Once the SDK is installed, Anthill can be built via:
+The default build is to do a docker containerized build. To run it:
 
 ```bash
-$ dep ensure
+make
+```
 
-$ operator-sdk build docker.io/gluster/anthill
-INFO[0000] Building Docker image docker.io/gluster/anthill
-Sending build context to Docker daemon  152.1MB
-Step 1/3 : FROM docker.io/centos:7.5.1804
-7.5.1804: Pulling from library/centos
-Digest: sha256:adbf1369c8dbeaa2bf9df0b891394e3ca09b5272a2fb54e0fadc6b14dd93fcad
-Status: Downloaded newer image for centos:7.5.1804
- ---> 76d6bc25b8a5
-Step 2/3 : USER nobody
- ---> Using cache
- ---> dc1dd738f9a4
-Step 3/3 : ADD build/_output/bin/anthill /usr/local/bin/anthill
- ---> Using cache
- ---> cffc3a0ef59e
-Successfully built cffc3a0ef59e
-Successfully tagged gluster/anthill:latest
-INFO[0002] Operator build complete.
+Depending on your configuration, you may need to provide an alternate
+container runtime command. You can do that like so:
+
+```bash
+RUNTIME_CMD="sudo docker" make
 ```
 
 ## Installation
@@ -72,7 +56,7 @@ There are two options for deploying the operator.
    executable locally. For this:
 
    ```bash
-   $ OPERATOR_NAME=anthill operator-sdk up local --namespace=default
+   $ OPERATOR_NAME=anthill-heketi operator-sdk up local --namespace=default
    INFO[0000] Running the operator locally.
    {"level":"info","ts":1542396040.2412076,"logger":"cmd","caller":"manager/main.go:57","msg":"Registering Components."}
    {"level":"info","ts":1542396040.2413611,"logger":"kubebuilder.controller","caller":"controller/controller.go:120","msg":"Starting EventSource","Controller":"glustercluster-controller","Source":"kind source: /, Kind="}
