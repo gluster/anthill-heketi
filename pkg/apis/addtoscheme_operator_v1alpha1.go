@@ -1,7 +1,7 @@
 package apis
 
 import (
-	"github.com/gluster/anthill/pkg/apis/operator/v1alpha1"
+	"github.com/gluster/anthill-heketi/pkg/apis/operator/v1alpha1"
 )
 
 func init() {
