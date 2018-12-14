@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/gluster/anthill-heketi.svg?branch=master)](https://travis-ci.org/gluster/anthill-heketi)
 [![Documentation Status](https://readthedocs.org/projects/gluster-anthill/badge/?version=latest)](http://gluster-anthill-heketi.readthedocs.io/)
+[![Go Report Card](https://goreportcard.com/badge/github.com/gluster/anthill-heketi)](https://goreportcard.com/report/github.com/gluster/anthill-heketi)
 <!-- Badges: TravisCI, CentOS CI, Coveralls, GoDoc, GoReport, ReadTheDocs -->
 
 **Found a bug?** [Let us know.](https://github.com/gluster/operator/issues/new?template=bug_report.md)
