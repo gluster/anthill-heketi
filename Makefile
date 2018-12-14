@@ -18,11 +18,18 @@ CONTAINER_BUILD_RECIPE:=docker build
 
 all: build
 
-build: dependencies
+build: vendor-install
 	$(GO_BUILD_RECIPE)
 
-dependencies:
-	$(DEP) ensure -v
+vendor-update:
+	@echo Updating vendored packages
+	$(DEP) ensure -update -v
+	@echo
+
+vendor-install:
+	@echo Installing vendored packages
+	$(DEP) ensure -vendor-only -v
+	@echo
 
 # TODO: need code generation?
 #generate: $(GOBINDATA_BIN)
