@@ -25,7 +25,6 @@ Once the SDK is installed, Anthill can be built via:
 $ dep ensure
 
 $ operator-sdk build docker.io/gluster/anthill
-$ operator-sdk build docker.io/gluster/anthill
 INFO[0000] Building Docker image docker.io/gluster/anthill
 Sending build context to Docker daemon  152.1MB
 Step 1/3 : FROM docker.io/centos:7.5.1804
