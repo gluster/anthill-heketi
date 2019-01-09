@@ -1,24 +1,28 @@
 ---
-sudo: false
+sudo: true
 
 addons:
   apt:
     packages:
+      - docker-ce
+      - python
       - realpath
       - ruby
 
 jobs:
   include:
-    - stage: linters
-      name: pre-commit linter
+    - stage: lint
+      name: Lint text files
       language: python
+      env:
+        - PIP_USER=0
       install:
-        - gem install asciidoctor mdl
-        - pip install yamllint
-      script: scripts/pre-commit.sh --require-all
-    - stage: linters
-      name: Documentation linter
-      language: python
-      install:
-        - pip install mkdocs
-      script: mkdocs build
+        - travis_retry pip install --upgrade pip
+        - travis_retry ./scripts/install-text-linters.sh
+      script: ./scripts/lint-text.sh --require-all
+    - stage: build
+      name: Test & Build
+      language: go
+      env:
+        - RUN_TESTS=1
+      script: ./scripts/container-build.sh

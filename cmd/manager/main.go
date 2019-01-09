@@ -14,8 +14,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/runtime/signals"
 
-	"github.com/gluster/anthill/pkg/apis"
-	"github.com/gluster/anthill/pkg/controller"
+	"github.com/gluster/anthill-heketi/pkg/apis"
+	"github.com/gluster/anthill-heketi/pkg/controller"
 )
 
 func printVersion() {

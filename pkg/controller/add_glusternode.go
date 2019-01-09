@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"github.com/gluster/anthill/pkg/controller/glusternode"
+	"github.com/gluster/anthill-heketi/pkg/controller/glusternode"
 )
 
 func init() {

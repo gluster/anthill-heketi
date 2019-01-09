@@ -17,7 +17,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/runtime/log"
 	"sigs.k8s.io/controller-runtime/pkg/source"
 
-	operatorv1alpha1 "github.com/gluster/anthill/pkg/apis/operator/v1alpha1"
+	operatorv1alpha1 "github.com/gluster/anthill-heketi/pkg/apis/operator/v1alpha1"
 )
 
 var log = logf.Log.WithName("controller_glusternode")
@@ -58,11 +58,8 @@ func add(mgr manager.Manager, r reconcile.Reconciler) error {
 		IsController: true,
 		OwnerType:    &operatorv1alpha1.GlusterNode{},
 	})
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }
 
 var _ reconcile.Reconciler = &ReconcileGlusterNode{}
@@ -104,7 +101,7 @@ func (r *ReconcileGlusterNode) Reconcile(request reconcile.Request) (reconcile.R
 	pod := newPodForCR(instance)
 
 	// Set GlusterNode instance as the owner and controller
-	if err := controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
+	if err = controllerutil.SetControllerReference(instance, pod, r.scheme); err != nil {
 		return reconcile.Result{}, err
 	}
 
